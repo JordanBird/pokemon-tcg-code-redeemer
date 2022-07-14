@@ -97,3 +97,8 @@ footer:before {
     padding: 1rem;
     color: white;
 }
+
+.copied,
+.table-striped>tbody>tr.copied:nth-of-type(odd)>* {
+    background-color: #b20607;
+}

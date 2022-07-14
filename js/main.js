@@ -78,7 +78,7 @@ function drawCodes() {
     }
 
     for (var i = 0; i < scannedCodes.length; i++) {
-        $('.full-body').append($(getFullRow(scannedCodes[i])));
+        $('.full-body').append($(getFullRow(scannedCodes[i], i + 1)));
     }
 }
 
@@ -94,13 +94,17 @@ function getRecentRow(scannedCode) {
     return $(row);
 }
 
-function getFullRow(scannedCode) {
+function getFullRow(scannedCode, position) {
     var copiedClass = "fa-check";
+    var rowCopiedClass = "copied";
+
     if (!scannedCode.copied) {
         copiedClass = "fa-times";
+        rowCopiedClass = "";
     }
 
-    var row = $('<tr>')
+    var row = $('<tr>', { class: rowCopiedClass })
+        .append($('<td>', { class: "d-none d-md-table-cell", html: position }))
         .append($('<td>', { html: scannedCode.code }))
         .append($('<td>', { class: "d-none d-md-table-cell", html: getDateAsDisplayString(scannedCode.scanned) }))
         .append($('<td>')
