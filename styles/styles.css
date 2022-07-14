@@ -1,0 +1,99 @@
+body {
+    background-image: url('/images/background.svg');
+    font-family: 'Exo', sans-serif;
+}
+
+.table {
+    color: #c8c4bd;
+}
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    background-color: black;
+    color: #c8c4bd;
+}
+.header-container {
+    background-color: black;
+}
+header:after {
+    content: ' ';
+    height: 0.25rem;
+    width: 100%;
+    background: rgb(222,181,86);
+    background: linear-gradient(90deg, #cf953e 0%, #fad692 50%, #cf953e 100%);
+    float: left;
+}
+
+footer {
+    color: white;
+}
+.footer-container {
+    background-color: rgb(30, 32, 33);
+    text-align: center;
+    padding: 2rem;
+}
+footer:before {
+    content: ' ';
+    height: 0.25rem;
+    width: 100%;
+    background: rgb(222,181,86);
+    background: linear-gradient(90deg, #cf953e 0%, #fad692 50%, #cf953e 100%);
+    float: left;
+}
+
+.header-info-box {
+    height: 75px;
+    border-top: solid 0.1rem rgb(57, 62, 64);
+    background-color: rgb(30, 32, 33);
+    color: white;
+    text-transform: uppercase;
+}
+.header-info-box p {
+    margin: 0;
+    text-align: center;
+}
+.card {
+    background-color: #181a1b;
+    color: #c8c4bd;
+}
+.card {
+    background-image: linear-gradient(#cf953e 0%, #fad692 50%, #cf953e 100%);
+    padding: 0.25rem;
+    color: #c8c4bd;
+    margin-bottom: 1rem;
+}
+.card-header {
+    background-color: black;
+    font-weight: bold;
+    border-bottom: solid 0.1rem rgb(57, 62, 64);
+    padding: 1rem;
+}
+.card-body {
+    background-color: #181a1b;
+}
+
+.btn-primary,
+.btn-primary:active,
+.btn-primary:focus {
+    background-color: #cf953e;
+    border-color: #fad692;
+    box-shadow: none;
+}
+
+.btn-primary:hover
+ {
+    background-color: #fad692;
+    border-color: #cf953e;
+    color: #cf953e;
+}
+
+.camera-selector {
+    background-color: black;
+    padding: 1rem;
+}
+
+#cam-list {
+    width: 100%;
+    background-color: #181a1b;
+    border-color: #393e40;
+    padding: 1rem;
+    color: white;
+}
