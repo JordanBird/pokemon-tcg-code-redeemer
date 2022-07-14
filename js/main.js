@@ -1,4 +1,5 @@
 var scannedCodes = [];
+var lastCode = "";
 
 // To enforce the use of the new api with detailed scan results, call the constructor with an options object, see below.
 const scanner = new QrScanner(
@@ -45,18 +46,25 @@ function addNewCode(code) {
         return val.code === code;
     })[0]);
 
-    if (position > -1) {
+    if (position > -1 && lastCode == code) {
+        return;
+    }
+    else if (position > -1) {
         scannedCodes[position].scanCount++;
 
         postUpdate(code + " has already been scanned " + scannedCodes[position].scanCount + " times");
+
+        lastCode = code;
 
         return;
     }
     else {
         postUpdate(code + " has been scanned");
+
+        lastCode = code;
     }
 
-    scannedCodes.splice(0, 0, { code: code, scanned: Date(), copied: false, scanCount: 0, copyCount: 0 });
+    scannedCodes.splice(0, 0, { code: code, scanned: Date(), copied: false, scanCount: 1, copyCount: 0 });
 
     drawCodes();
 }
@@ -176,8 +184,9 @@ function copyAndMarkCode(code) {
     if (copyCount > 1) {
         postUpdate(code + " has already been copied " + copyCount + " times");
     }
-
-    postUpdate(code + " copied to clipboard and marked as copied");
+    else {
+        postUpdate(code + " copied to clipboard");
+    }
 }
 
 function markCodeAsCopied(code) {
