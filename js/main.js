@@ -48,12 +48,15 @@ function addNewCode(code) {
     if (position > -1) {
         scannedCodes[position].scanCount++;
 
-        //TODO: Another alert?
+        postUpdate(code + " has already been scanned " + scannedCodes[position].scanCount + " times");
 
         return;
     }
+    else {
+        postUpdate(code + " has been scanned");
+    }
 
-    scannedCodes.splice(0, 0, { code: code, scanned: Date(), copied: false, scanCount: 0 });
+    scannedCodes.splice(0, 0, { code: code, scanned: Date(), copied: false, scanCount: 0, copyCount: 0 });
 
     drawCodes();
 }
@@ -113,6 +116,7 @@ function copyAllCodesToClipboard() {
         codes += scannedCodes[i].scanned + seperator;
         codes += scannedCodes[i].copied + seperator;
         codes += scannedCodes[i].scanCount + seperator;
+        codes += scannedCodes[i].copyCount + seperator;
         codes += newLine;
     }
 
@@ -142,6 +146,9 @@ function importCodesFromClipboard() {
                 if (c == 3) {
                     newCode.scanCount = cells[c];
                 }
+                if (c == 4) {
+                    newCode.copyCount = cells[c];
+                }
             }
 
             scannedCodes.push(newCode);
@@ -162,10 +169,15 @@ function cleanImportText(text) {
 function copyAndMarkCode(code) {
     navigator.clipboard.writeText(code);
 
-    markCodeAsCopied(code);
+    var copyCount = markCodeAsCopied(code);
 
     drawCodes();
-    postUpdate(code + " copied to clipboard and marked as copied")
+
+    if (copyCount > 1) {
+        postUpdate(code + " has already been copied " + copyCount + " times");
+    }
+
+    postUpdate(code + " copied to clipboard and marked as copied");
 }
 
 function markCodeAsCopied(code) {
@@ -174,6 +186,9 @@ function markCodeAsCopied(code) {
     })[0]);
 
     scannedCodes[position].copied = true;
+    scannedCodes[position].copyCount++;
+
+    return scannedCodes[position].copyCount;
 }
 
 function postUpdate(update) {
@@ -189,7 +204,6 @@ function getDateAsDisplayString(date) {
 
     var timeString = dateAsDate.getHours() + ":" + dateAsDate.getMinutes();
     var dateString = dateAsDate.getDay() + "/" + dateAsDate.getMonth() + "/" + dateAsDate.getFullYear();
-
 
     return timeString + " " + dateString;
 }
